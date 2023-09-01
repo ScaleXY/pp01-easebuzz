@@ -21,9 +21,9 @@
 	"extra": {
 		"laravel": {
 			"providers": [
-				"Barryvdh\\Debugbar\\ServiceProvider"
+				"ScaleXY\\Easebuzz\\EasebuzzServiceProvider"
 			],
-			"aliases": {
+			"1aliases": {
 				"Debugbar": "Barryvdh\\Debugbar\\Facade"
 			}
 		}

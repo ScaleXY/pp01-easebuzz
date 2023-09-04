@@ -34,3 +34,9 @@ If there is some small bug that you need fixed like adding a new param, open an 
 ## Security issues
 
 If there are any security issues, please mail us security@scalexy.com
+
+## Features implemented
+
+- Wire
+- - InstaCollect
+- - - CreateAccount

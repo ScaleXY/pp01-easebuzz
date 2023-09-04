@@ -16,10 +16,10 @@ class InstaCollect
 		$this->client = new EasebuzzServiceHandler($key, $salt);
 	}
 
-	public function CreateVirtualAccount($virtual_account_number, $virtual_payment_address = null, $label = null, $description = null)
+	public function CreateVirtualAccount($virtual_account_number, $virtual_payment_address = null, $label = null, $description = null): object
 	{
 		$path = "/api/v1/insta-collect/virtual_accounts/";
-		$this->client->makePOSTRequest(self::base_path . $path, [
+		return $this->client->makePOSTRequestType02(self::base_path . $path, [
 			"virtual_account_number" => $virtual_account_number,
 			"virtual_payment_address" => $virtual_payment_address ?? $virtual_account_number,
 			"label" => $label ?? "VA " . $virtual_account_number,

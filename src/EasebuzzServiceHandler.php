@@ -53,7 +53,7 @@ class EasebuzzServiceHandler
 		return $resp->data->virtual_account;
 	}
 
-	public static function fuckNutsAmountFormating($amount): string
+	public static function easebuzzAmountFormating($amount): string
 	{
 		$amount = $amount;
 		if(round(($amount * 100), 0) % 100 == 0)

@@ -40,3 +40,5 @@ If there are any security issues, please mail us security@scalexy.com
 - Wire
 - - InstaCollect
 - - - CreateAccount
+- - Payouts
+- - - InitiatePayout

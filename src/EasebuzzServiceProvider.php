@@ -19,6 +19,6 @@ class EasebuzzServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+		$this->loadRoutesFrom(__DIR__ . '/lib/routes/webhook.php');
     }
 }

@@ -39,6 +39,12 @@ If there are any security issues, please mail us security@scalexy.com
 
 - Wire
 - - InstaCollect
-- - - CreateAccount
+- - - Create account
+- - Contacts
+- - - Create contact
+- - - Retrieve all contacts
+- - Beneficiary Accounts
+- - - Add beneficiary account
+- - - Retrieve beneficiary list
 - - Payouts
-- - - InitiatePayout
+- - - Initiate payout

@@ -29,4 +29,9 @@ class Payouts
 			"amount"
 		])->data;
 	}
+	public function FetchVirtualAccounts()
+	{
+		$path = "/api/v1/virtual_accounts/";
+		return $this->client->makeGETRequestType01(self::base_path . $path, [], [])->data->virtual_accounts;
+	}
 }

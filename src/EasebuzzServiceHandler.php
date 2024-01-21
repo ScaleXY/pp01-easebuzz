@@ -11,21 +11,26 @@ class EasebuzzServiceHandler
 {
 	public $key;
 	public $salt;
+	public $debug;
 
-	public function __construct($key, $salt)
+	public function __construct($key, $salt, $debug = false)
 	{
 		$this->key = $key;
 		$this->salt = $salt;
+		$this->debug = $debug;
 	}
 
 	public function generateHash($hash_params = [])
 	{
-		$hash_values_array = [$this->key];
+		$hash_values_array = [];
+		array_push($hash_values_array, $this->key);
 		foreach($hash_params as $param)
 			array_push($hash_values_array, $param);
 		array_push($hash_values_array, $this->salt);
-		Log::warning($hash_values_array);
-		return hash("sha512", implode("|", $hash_values_array));
+		if($this->debug) Log::warning($hash_values_array);
+		$hash = hash("sha512", implode("|", $hash_values_array));
+		if($this->debug) Log::warning($hash);
+		return $hash;
 	}
 	public function makePOSTRequestType01($request_url, $request_payload, $hash_keys)
 	{
@@ -39,7 +44,7 @@ class EasebuzzServiceHandler
 		$resp = Http::withHeaders($headers)
 			->post($request_url, $request_payload)
 			->json();
-		Log::warning($resp);
+		if($this->debug) Log::warning(json_encode($resp));
 		$resp = json_decode(json_encode($resp));
 		if (!$resp->success)
 			throw new Exception($resp->message);
@@ -49,15 +54,13 @@ class EasebuzzServiceHandler
 	{
 		$query_params["key"] = $this->key;
 		$hash_values = array_values(Arr::only($query_params, $hash_keys));
-		// Log::warning($tt);
 		$headers = [
 			"Authorization" => $this->generateHash($hash_values),
-			// "WIRE-API-KEY" => $this->key,
 		];
 		$resp = Http::withHeaders($headers)
 			->get($request_url, $query_params)
 			->json();
-		// Log::warning($resp);
+		if($this->debug) Log::warning(json_encode($resp));
 		$resp = json_decode(json_encode($resp));
 		if (!$resp->success)
 			throw new Exception($resp->message);

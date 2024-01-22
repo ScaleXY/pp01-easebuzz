@@ -34,7 +34,7 @@ class BeneficiaryAccounts
 			"upi_handle" => $upi_handle,
 		];
 		$hash_keys = [ "contact_id", "beneficiary_name", "account_number", "ifsc", "upi_handle" ];
-		return $this->client->makePOSTRequestType02(self::base_path . $path, $request_payload, $hash_keys)->data;
+		return $this->client->makePOSTRequestType01(self::base_path . $path, $request_payload, $hash_keys)->data;
 	}
 	public function Retrieve($contact_id, $current = 1, $pageSize = 10)
 	{

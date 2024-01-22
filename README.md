@@ -37,9 +37,7 @@ If there are any security issues, please mail us security@scalexy.com
 
 ## Features implemented
 
-- Wire
-- - InstaCollect
-- - - Create account
+- Neobanking
 - - Contacts
 - - - Create contact
 - - - Retrieve all contacts
@@ -47,4 +45,10 @@ If there are any security issues, please mail us security@scalexy.com
 - - - Add beneficiary account
 - - - Retrieve beneficiary list
 - - Payouts
-- - - Initiate payout
+- - - Transfers
+- - - - Initiate payout
+- - - Accounts
+- - - - Fetch Virtual Account
+- - InstaCollect
+- - - Virtual Accounts
+- - - - Create account

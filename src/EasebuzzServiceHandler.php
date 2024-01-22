@@ -34,9 +34,6 @@ class EasebuzzServiceHandler
 	}
 	public function makePOSTRequestType01($request_url, $request_payload, $hash_keys)
 	{
-	}
-	public function makePOSTRequestType02($request_url, $request_payload, $hash_keys)
-	{
 		$request_payload["key"] = $this->key;
 		$headers = [
 			"Authorization" => $this->generateHash(array_values(Arr::only($request_payload, $hash_keys))),

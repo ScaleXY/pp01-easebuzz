@@ -1,11 +1,12 @@
 <?php
 
-namespace ScaleXY\Easebuzz;
+namespace ScaleXY\Easebuzz\InstaCollect;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
+use ScaleXY\Easebuzz\EasebuzzServiceHandler;
 
-class InstaCollect
+class VirtualAcounts
 {
 	const base_path = "https://wire.easebuzz.in";
 	// const base_path = "https://stoplight.io/mocks/easebuzz/neobanking/90373567";
@@ -20,7 +21,7 @@ class InstaCollect
 	public function CreateVirtualAccount($virtual_account_number, $virtual_payment_address = null, $label = null, $description = null): object
 	{
 		$path = "/api/v1/insta-collect/virtual_accounts/";
-		return $this->client->makePOSTRequestType02(self::base_path . $path, [
+		return $this->client->makePOSTRequestType01(self::base_path . $path, [
 			"virtual_account_number" => $virtual_account_number,
 			"virtual_payment_address" => $virtual_payment_address ?? $virtual_account_number,
 			"label" => $label ?? "VA " . $virtual_account_number,
@@ -32,7 +33,7 @@ class InstaCollect
 	public function handleWebhook($virtual_account_number, $virtual_payment_address = null, $label = null, $description = null): void
 	{
 		// $path = "/api/v1/insta-collect/virtual_accounts/";
-		// return $this->client->makePOSTRequestType02(self::base_path . $path, [
+		// return $this->client->makePOSTRequestType01(self::base_path . $path, [
 		// 	"virtual_account_number" => $virtual_account_number,
 		// 	"virtual_payment_address" => $virtual_payment_address ?? $virtual_account_number,
 		// 	"label" => $label ?? "VA " . $virtual_account_number,

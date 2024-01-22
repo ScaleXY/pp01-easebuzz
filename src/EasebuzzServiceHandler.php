@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Http;
 
 class EasebuzzServiceHandler
 {
-	public $key;
-	public $salt;
+	protected $key, $salt;
+
 	public $debug;
 
 	public function __construct($key, $salt, $debug = false)
@@ -32,6 +32,7 @@ class EasebuzzServiceHandler
 		if($this->debug) Log::warning($hash);
 		return $hash;
 	}
+
 	public function makePOSTRequestType01($request_url, $request_payload, $hash_keys)
 	{
 		$request_payload["key"] = $this->key;
@@ -47,6 +48,23 @@ class EasebuzzServiceHandler
 			throw new Exception($resp->message);
 		return $resp;
 	}
+
+	public function makePUTRequestType01($request_url, $request_payload, $hash_keys)
+	{
+		$request_payload["key"] = $this->key;
+		$headers = [
+			"Authorization" => $this->generateHash(array_values(Arr::only($request_payload, $hash_keys))),
+		];
+		$resp = Http::withHeaders($headers)
+			->put($request_url, $request_payload)
+			->json();
+		if($this->debug) Log::warning(json_encode($resp));
+		$resp = json_decode(json_encode($resp));
+		if (!$resp->success)
+			throw new Exception($resp->message);
+		return $resp;
+	}
+
 	public function makeGETRequestType01($request_url, $query_params, $hash_keys)
 	{
 		$query_params["key"] = $this->key;

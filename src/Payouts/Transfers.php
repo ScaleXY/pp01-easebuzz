@@ -4,22 +4,20 @@ namespace ScaleXY\Easebuzz\Payouts;
 
 use ScaleXY\Easebuzz\EasebuzzServiceHandler;
 
-class Transfers
+class Transfers extends EasebuzzServiceHandler
 {
 	const base_path = "https://wire.easebuzz.in";
 	// const base_path = "https://stoplight.io/mocks/easebuzz/neobanking/90373567";
 
-	public $client;
-
-	public function __construct($key, $salt)
+	public function __construct($key, $salt, $debug = false)
 	{
-		$this->client = new EasebuzzServiceHandler($key, $salt);
+		parent::__construct($key, $salt, $debug);
 	}
 
 	public function InitiatePayout($virtual_account_number, $beneficiary_code, $uuid, string $payment_mode, float $amount)
 	{
 		$path = "/api/v1/transfers/initiate/";
-		return $this->client->makePOSTRequestType01(self::base_path . $path, [
+		return $this->makePOSTRequestType01(self::base_path . $path, [
 			"virtual_account_number" => $virtual_account_number,
 			"beneficiary_code" => $beneficiary_code,
 			"unique_request_number" => str_replace("-", "", $uuid),

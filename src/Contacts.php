@@ -2,16 +2,14 @@
 
 namespace ScaleXY\Easebuzz;
 
-class Contacts
+class Contacts extends EasebuzzServiceHandler
 {
 	const base_path = "https://wire.easebuzz.in";
 	// const base_path = "https://stoplight.io/mocks/easebuzz/neobanking/90373567";
 
-	public $client;
-
-	public function __construct($key, $salt)
+	public function __construct($key, $salt, $debug = false)
 	{
-		$this->client = new EasebuzzServiceHandler($key, $salt);
+		parent::__construct($key, $salt, $debug);
 	}
 
 	public function CreateContact($name, $email = "", $phone = "")
@@ -19,12 +17,21 @@ class Contacts
 		$path = "/api/v1/contacts/";
 		$request_payload = ["name" => $name, "email" => $email, "phone" => $phone];
 		$hash_keys = [ "name", "email", "phone" ];
-		return $this->client->makePOSTRequestType01(self::base_path . $path, $request_payload, $hash_keys)->data;
+		return $this->makePOSTRequestType01(self::base_path . $path, $request_payload, $hash_keys)->data;
 	}
+
+	public function UpdateContact($eb_id, $name, $email = "", $phone = "")
+	{
+		$path = "/api/v1/contacts/$eb_id/";
+		$request_payload = ["name" => $name, "email" => $email, "phone" => $phone];
+		$hash_keys = [ "name", "email", "phone" ];
+		return $this->makePUTRequestType01(self::base_path . $path, $request_payload, $hash_keys)->data;
+	}
+
 	public function RetrieveContacts($current = 1, $pageSize = 10)
 	{
 		$path = "/api/v1/contacts/";
 		$query_params = [ "current" => $current, "pageSize" => $pageSize ];
-		return $this->client->makeGETRequestType01(self::base_path . $path, $query_params, [])->data;
+		return $this->makeGETRequestType01(self::base_path . $path, $query_params, [])->data;
 	}
 }

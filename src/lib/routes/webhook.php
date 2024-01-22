@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use ScaleXY\Easebuzz\InstaCollect;
+use ScaleXY\Easebuzz\InstaCollect\VirtualAccounts;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +15,4 @@ use ScaleXY\Easebuzz\InstaCollect;
 |
 */
 
-Route::post('/service_apis/',	[InstaCollect::class,  'handleWebhook'])->name('scalexy_easebuzz_webhook');
+// Route::post('/service_apis/',	[VirtualAccounts::class,  'handleWebhook'])->name('scalexy_easebuzz_webhook');

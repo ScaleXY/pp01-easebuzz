@@ -4,7 +4,7 @@ namespace ScaleXY\Easebuzz\InstaCollect;
 
 use ScaleXY\Easebuzz\EasebuzzServiceHandler;
 
-class VirtualAccounts extends EasebuzzServiceHandler
+class Transactions extends EasebuzzServiceHandler
 {
     const base_path = 'https://wire.easebuzz.in';
     // const base_path = "https://stoplight.io/mocks/easebuzz/neobanking/90373567";
@@ -14,18 +14,16 @@ class VirtualAccounts extends EasebuzzServiceHandler
         parent::__construct($key, $salt, $debug);
     }
 
-    public function CreateVirtualAccount($virtual_account_number, $virtual_payment_address = null, $label = null, $description = null): object
+    public function GetTransactionsListV2($date): object
     {
-        $path = '/api/v1/insta-collect/virtual_accounts/';
+        $path = '/api/v2/insta-collect/transactions';
 
-        return $this->makePOSTRequestType01(self::base_path.$path, [
-            'virtual_account_number' => $virtual_account_number,
-            'virtual_payment_address' => $virtual_payment_address ?? $virtual_account_number,
-            'label' => $label ?? 'VA '.$virtual_account_number,
-            'description' => $description ?? 'No description',
+        return $this->makeGETRequestType01(self::base_path.$path, [
+            'created_at' => $date->format('Y-m-d'),
+            'pageSize' => 100,
         ], [
             'label',
-        ])->data->virtual_account;
+        ])->data->results;
     }
 
     // public function handleWebhook($virtual_account_number, $virtual_payment_address = null, $label = null, $description = null): void
